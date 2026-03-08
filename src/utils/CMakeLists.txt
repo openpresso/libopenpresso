@@ -1,0 +1,13 @@
+libopenpresso_sources(utils 
+  HEADERS
+    callback_descriptor_handler.hpp
+    epoll_thread.hpp
+    fd_wrapper.hpp
+    spinlock.hpp
+    on_timeout.hpp
+    input_range_of.hpp
+    visit_view.hpp
+    derivative_filter.hpp
+    logger.hpp
+    logger_details.hpp
+)

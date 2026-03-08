@@ -1,0 +1,3 @@
+libopenpresso_sources(integral_flow_rate_controller
+  HEADERS integral_flow_rate_controller.hpp
+  SOURCES integral_flow_rate_controller.cpp)

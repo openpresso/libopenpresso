@@ -1,0 +1,3 @@
+libopenpresso_sources(pin_output_logical_switch
+  HEADERS pin_output_logical_switch.hpp
+  SOURCES pin_output_logical_switch.cpp)

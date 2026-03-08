@@ -1,0 +1,22 @@
+libopenpresso_sources(gpio
+    HEADERS
+        pin_data.hpp
+        pins_transforms.hpp
+        power_controller.hpp
+        pin_output.hpp
+        pin_monitor.hpp
+        pin_event_handler.hpp
+        multi_pin_monitor.hpp
+        time_sensetive_pin_mointor.hpp
+        pins_manager.hpp
+        pulse_controller.hpp
+        pulse_power_controller.hpp
+    SOURCES
+        pin_output.cpp
+        pin_event_handler.cpp
+        multi_pin_monitor.cpp
+        time_sensetive_pin_mointor.cpp
+        pins_manager.cpp
+        pulse_controller.cpp
+        pulse_power_controller.cpp
+)

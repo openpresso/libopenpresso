@@ -1,0 +1,3 @@
+libopenpresso_sources(virtual_flow_rate_controller
+  HEADERS virtual_flow_rate_controller.hpp
+  SOURCES virtual_flow_rate_controller.cpp)

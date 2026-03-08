@@ -1,0 +1,49 @@
+---
+Checks: [
+  -*,
+  bugprone-*,
+  cert-*,
+  cppcoreguidelines-*,
+  misc-*,
+  modernize-*,
+  performance-*,
+  readability-*,
+  -cppcoreguidelines-pro-bounds-pointer-arithmetic,
+  -cppcoreguidelines-avoid-do-while,
+  -cppcoreguidelines-pro-type-vararg, # It argues on functions from linux headers
+  -cppcoreguidelines-pro-type-union-access, # It argues on functions from linux headers
+  -cppcoreguidelines-explicit-virtual-functions, # Duplicates modernize-use-override
+  -cppcoreguidelines-avoid-magic-numbers, # Duplicates readability-magic-numbers
+  -cppcoreguidelines-narrowing-conversions, # Duplicates bugprone-narrowing-conversions
+  -cppcoreguidelines-pro-bounds-avoid-unchecked-container-access,
+  -modernize-use-trailing-return-type,
+  -modernize-use-nodiscard,
+  -readability-identifier-naming,
+  -readability-identifier-length,
+  -readability-uppercase-literal-suffix,
+  -readability-redundant-access-specifiers, # I use them to visually split private methods and members blocks
+  -readability-math-missing-parentheses,
+  -misc-const-correctness,
+  -misc-multiple-inheritance,
+  -misc-override-with-different-visibility,
+  -performance-avoid-endl,
+  -bugprone-narrowing-conversions
+]
+
+FormatStyle: 'file'
+CheckOptions:
+  - key:             cppcoreguidelines-special-member-functions.AllowSoleDefaultDtor
+    value:           True
+  - key:             misc-include-cleaner.IgnoreHeaders
+    value:           "bits/.*;components_fabric/.*;pid_state_dump.hpp"
+  - key:             bugprone-easily-swappable-parameters.MinimumLength
+    value:           4
+  - key:             modernize-use-override.IgnoreDestructors
+    value:           True
+  - key:             misc-non-private-member-variables-in-classes.IgnoreClassesWithAllMemberVariablesBeingPublic
+    value:           True
+  - key:             readability-magic-numbers.IgnoredIntegerValues
+    value:           0;1;2;4;8;16;24;255
+  - key:             readability-magic-numbers.IgnoredFloatingPointValues
+    value:           0.0;1.0;2.0
+...

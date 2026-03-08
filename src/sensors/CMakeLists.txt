@@ -1,0 +1,9 @@
+libopenpresso_private_headers_base_dir()
+
+add_subdirectory(ads1115_pressure_sensor)
+add_subdirectory(max6675_temperature_sensor)
+add_subdirectory(max31856_temperature_sensor)
+add_subdirectory(debounced_pin_state)
+add_subdirectory(virtual_weight_sensor)
+add_subdirectory(nau7802_weight_sensor)
+add_subdirectory(pump_flow_sensor)

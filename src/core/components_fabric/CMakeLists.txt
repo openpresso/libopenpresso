@@ -1,0 +1,32 @@
+libopenpresso_sources(components_fabric
+  HEADERS 
+    component_fabric_base.hpp
+
+    power_controllers_fabric.hpp
+    flow_sensor_fabric.hpp
+    weight_sensor_fabric.hpp
+    pressure_sensor_fabric.hpp
+    temperature_sensor_fabric.hpp
+    logical_input_fabric.hpp
+    pressure_controller_fabric.hpp
+    flow_rate_controller_fabric.hpp
+    temperature_controller_fabric.hpp
+    logical_output_fabric.hpp
+    brew_profiler_fabric.hpp
+    steam_controller_fabric.hpp
+    pulse_controller_fabric.hpp
+  SOURCES
+    power_controllers_fabric.cpp
+    flow_sensor_fabric.cpp
+    weight_sensor_fabric.cpp
+    pressure_sensor_fabric.cpp
+    temperature_sensor_fabric.cpp
+    logical_input_fabric.cpp
+    pressure_controller_fabric.cpp
+    flow_rate_controller_fabric.cpp
+    temperature_controller_fabric.cpp
+    logical_output_fabric.cpp
+    brew_profiler_fabric.cpp
+    steam_controller_fabric.cpp
+    pulse_controller_fabric.cpp
+)

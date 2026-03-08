@@ -1,0 +1,9 @@
+libopenpresso_private_headers_base_dir()
+
+add_subdirectory(integral_flow_rate_controller)
+add_subdirectory(pin_output_logical_switch)
+add_subdirectory(pid_temperature_controller)
+add_subdirectory(pulse_pressure_controller)
+add_subdirectory(brew_profiler)
+add_subdirectory(steam_controller)
+add_subdirectory(virtual_flow_rate_controller)

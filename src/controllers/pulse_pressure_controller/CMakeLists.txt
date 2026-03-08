@@ -1,0 +1,3 @@
+libopenpresso_sources(pulse_pressure_controller
+  HEADERS pulse_pressure_controller.hpp
+  SOURCES pulse_pressure_controller.cpp)

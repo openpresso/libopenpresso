@@ -1,0 +1,47 @@
+name: Publish release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish-artifacts:
+    name: Publish docs and packages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Cloudsmith CLI
+        uses: cloudsmith-io/cloudsmith-cli-action@v2
+        with:
+          api-key: ${{ secrets.CONAN_DEPLOY_KEY }}
+
+      - name: Parse version from tag
+        id: version
+        uses: release-kit/semver@v2
+
+      - name: Download docs asset
+        uses: robinraju/release-downloader@v1
+        with:
+          tag: ${{ github.event.release.tag_name }}
+          fileName: 'libopenpresso-docs-${{ steps.version.outputs.full }}.zip'
+          out-file-path: libopenpresso-docs-${{ steps.version.outputs.full }}
+          extract: true
+
+      - name: Publish docs
+        uses: openpresso/openpresso.github.io/.github/actions/deploy-docs@gh-pages
+        with:
+          commit_message: "[CI] Libopenpresso docs deployed: ${{ steps.version.outputs.full }}"
+          repository: openpresso/openpresso.github.io
+          deployment_key: ${{ secrets.PAGES_DEPLOY_KEY }}
+          source_dir: libopenpresso-docs-${{ steps.version.outputs.full }}
+          target_dir: libopenpresso
+          checkout_path: pages
+          version: ${{ steps.version.outputs.full }}
+          verion_type: 'stable'
+
+      - name: Publish conan packages
+        run: |
+          QUERY="name:libopenpresso AND version:${{ steps.version.outputs.full }}"
+          SLUGS=$(cloudsmith list packages openpresso/draft -F pretty_json -q "$QUERY" | jq -r '.data[].slug_perm')
+          while read -r slug; do
+            cloudsmith move -y openpresso/draft/$slug stable
+          done <<< "$SLUGS"
