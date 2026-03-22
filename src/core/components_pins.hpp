@@ -27,7 +27,7 @@ inline std::list<gpio::any_pin_info_t> getPinsInfo(const component_label_t& labe
 {
   gpio::input_pin_info_t signalPinInfo;
   signalPinInfo.pinAddr = component.signalPin;
-  signalPinInfo.label = label + "_ads1115_signal";
+  signalPinInfo.label = label;
   signalPinInfo.listenEvents = gpio::PinEvent::FallingEdge;
   signalPinInfo.pinPull = PinPull::PullUp;
   signalPinInfo.timeCritical = false;
@@ -39,7 +39,7 @@ inline std::list<gpio::any_pin_info_t> getPinsInfo(const component_label_t& labe
 {
   gpio::input_pin_info_t signalPinInfo;
   signalPinInfo.pinAddr = component.signalPin;
-  signalPinInfo.label = label + "_nau7802_signal";
+  signalPinInfo.label = label;
   signalPinInfo.listenEvents = gpio::PinEvent::RisingEdge;
   signalPinInfo.pinPull = PinPull::PullDown;
   signalPinInfo.timeCritical = false;
@@ -51,7 +51,7 @@ inline std::list<gpio::any_pin_info_t> getPinsInfo(const component_label_t& labe
 {
   gpio::input_pin_info_t signalPinInfo;
   signalPinInfo.pinAddr = component.signalPin;
-  signalPinInfo.label = label + "_max31856_signal";
+  signalPinInfo.label = label;
   signalPinInfo.listenEvents = gpio::PinEvent::FallingEdge;
   signalPinInfo.pinPull = PinPull::PullUp;
   signalPinInfo.timeCritical = false;
@@ -63,7 +63,7 @@ inline std::list<gpio::any_pin_info_t> getPinsInfo(const component_label_t& labe
 {
   gpio::input_pin_info_t signalPinInfo;
   signalPinInfo.pinAddr = component.signalPin;
-  signalPinInfo.label = label + "_signal";
+  signalPinInfo.label = label;
   signalPinInfo.listenEvents = gpio::PinEvent::Both;
   signalPinInfo.pinPull = PinPull::PullDown;
   signalPinInfo.timeCritical = true;
@@ -87,7 +87,7 @@ inline std::list<gpio::any_pin_info_t> getPinsInfo(const component_label_t& labe
 {
   gpio::output_pin_info_t controlPinInfo;
   controlPinInfo.pinAddr = component.pulsePin;
-  controlPinInfo.label = label + "_pulse_control";
+  controlPinInfo.label = label;
   controlPinInfo.initState = false;
   return {controlPinInfo};
 }
