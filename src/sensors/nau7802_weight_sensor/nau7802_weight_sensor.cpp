@@ -25,11 +25,13 @@ Nau7802WeightSensor::Nau7802WeightSensor(const std::shared_ptr<i2c::I2cBus>& bus
                                          uint32_t scale,
                                          time_delta_t flowRateSmoothingTime)
 : m_scale{static_cast<int32_t>(scale)}
+, m_tareLock{true}
 , m_dFiler{std::chrono::duration<float>(flowRateSmoothingTime).count(),
            1.0f / Nau7802WeightSensorI2cControl::sps()}
 , m_i2cControl{bus, dev, [this, monitor] {
-                 m_monitorCallback.emplace(monitor, gpio::PinEvent::RisingEdge, makeCallback());
+                 m_tareLock.unlock();
                  m_i2cControl.readRawWeight();
+                 m_monitorCallback.emplace(monitor, gpio::PinEvent::RisingEdge, makeCallback());
                }}
 {
 }
@@ -47,9 +49,12 @@ Nau7802WeightSensor::~Nau7802WeightSensor()
 
 void Nau7802WeightSensor::tare()
 {
-  if (!m_tareFlag.exchange(true, std::memory_order_acq_rel)) {
-    m_tareFlag.wait(true, std::memory_order_relaxed);
-  }
+  std::scoped_lock lock(m_tareLock);
+  m_i2cControl.resetZero();
+  m_i2cControl.readRawWeight();
+  m_weight.store(0, std::memory_order_relaxed);
+  m_rate.store(0, std::memory_order_relaxed);
+  m_dFiler.reset();
 }
 
 milligrams_t Nau7802WeightSensor::getWeight() const
@@ -94,17 +99,8 @@ gpio::PinMonitor::PinEventCallback_t Nau7802WeightSensor::makeCallback()
     milligrams_p_second_t rate = 0;
 
     try {
-      if (m_tareFlag.load(std::memory_order_acquire)) {
-        m_weight.store(0, std::memory_order_relaxed);
-        m_rate.store(0, std::memory_order_relaxed);
-        m_tareFlag.store(false, std::memory_order_release);
-        m_tareFlag.notify_one();
-
-        m_i2cControl.resetZero();
-        m_i2cControl.readRawWeight();
-        m_dFiler.reset();
-      }
-      else {
+      std::unique_lock lock(m_tareLock, std::try_to_lock);
+      if (lock.owns_lock()) {
         weight = (m_i2cControl.readRawWeight() * m_scale) >> WEIGHT_SCALE_BIT_OFFSET;
         rate = m_dFiler.process(weight);
         m_weight.store(weight, std::memory_order_relaxed);

@@ -55,7 +55,7 @@ private:
   const int32_t m_scale;
   std::atomic<milligrams_t> m_weight = 0;
   std::atomic<milligrams_p_second_t> m_rate = 0;
-  std::atomic<bool> m_tareFlag = false;
+  spinlock m_tareLock;
   FilteredDerivative<float, true> m_dFiler;
   std::optional<gpio::PinMonitorCallbackHandler> m_monitorCallback;
   Nau7802WeightSensorI2cControl m_i2cControl;
