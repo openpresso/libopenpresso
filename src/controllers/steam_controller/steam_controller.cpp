@@ -100,7 +100,7 @@ millidegrees_t SteamController::getTargetTemperature() const
 void SteamController::setTargetTemperature(millidegrees_t millidegrees)
 {
   m_steamTemperature.store(millidegrees, std::memory_order_relaxed);
-  if(isActive()) {
+  if (isActive()) {
     m_preheatController->setTargetTemperature(millidegrees);
     m_steamingTemperatureController->setTargetTemperature(millidegrees);
   }
