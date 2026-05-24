@@ -10,7 +10,6 @@
 #include "components_fabric/pressure_controller_fabric.hpp"
 #include "components_fabric/pressure_sensor_fabric.hpp"
 #include "components_fabric/pulse_controller_fabric.hpp"
-#include "components_fabric/steam_controller_fabric.hpp"
 #include "components_fabric/temperature_controller_fabric.hpp"
 #include "components_fabric/temperature_sensor_fabric.hpp"
 #include "components_fabric/weight_sensor_fabric.hpp"
@@ -20,7 +19,6 @@
 
 #include <libopenpresso/config.hpp>
 #include <libopenpresso/interfaces/brew_profiler.hpp>
-#include <libopenpresso/interfaces/controller_base.hpp>
 #include <libopenpresso/interfaces/flow_rate_controller.hpp>
 #include <libopenpresso/interfaces/libopenpresso_core.hpp>
 #include <libopenpresso/interfaces/logical_input.hpp>
@@ -52,8 +50,7 @@ class Core
 , private FlowRateControllerFabric
 , private TemperatureControllerFabric
 , private LogicalOutputFabric
-, private BrewProfilerFabric
-, private SteamControllerFabric {
+, private BrewProfilerFabric {
 public:
   Core(const DeviceConfig& config);
   Core(const Core&) = delete;
@@ -73,7 +70,6 @@ public:
   LogicalOutputPtr getLogicalOutput(const component_label_t& label) override;
   LogicalInputPtr getLogicalInput(const component_label_t& label) override;
   BrewProfilerPtr getBrewProfiler(const component_label_t& label) override;
-  ControllerBasePtr getSteamController(const component_label_t& label) override;
 
 private:
   const component_config_t& findComponentConfig(const component_label_t& label) const override;

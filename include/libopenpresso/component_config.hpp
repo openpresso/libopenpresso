@@ -352,19 +352,19 @@ struct BrewProfilerConfig {
  *       with the label of this config to get configured component instance.
  */
 struct SteamControllerConfig {
-  millidegrees_t steamTemperature; ///< Target steam boiler temperature
-  millibars_t pressureThreshold;   ///< Steam pressure threshold, refill is disabled above this
-                                   ///< pressure (should be slightly above maximum possible pressure
-                                   ///< with opened steam valve, usually ~2.5 bar)
-  millidegrees_t temperatureThreshold; ///< Temperature threshold, refill is disabled below this
-                                       ///< temperature (should be ~10°C lower than
-                                       ///< steamTemperature)
-  milligrams_p_second_t refillFlow;    ///< Boiler refill flow rate (too high values lead to boiler
-                                       ///< overflow and water spillage from steam wand, too low
-                                       ///< values lead to boiler dry-run during long steaming
-                                       ///< sessions)
-  time_delta_t refillUpdatePeriod; ///< How often to check if refill is needed (usually 250-500ms
-                                   ///< is sufficient)
+  millibars_t pressureThreshold; ///< Steam pressure threshold, refill is disabled above this
+                                 ///< pressure (should be slightly above maximum possible pressure
+                                 ///< with opened steam valve, usually ~2.5 bar)
+  millidegrees_t temperatureRelativeThreshold; ///< Temperature threshold, refill is disabled when
+                                               ///< boiler temperature is lower than
+                                               ///< steamTemperature by this offset (should be
+                                               ///< ~10°C)
+  milligrams_p_second_t refillFlow; ///< Boiler refill flow rate (too high values lead to boiler
+                                    ///< overflow and water spillage from steam wand, too low
+                                    ///< values lead to boiler dry-run during long steaming
+                                    ///< sessions)
+  time_delta_t refillUpdatePeriod;  ///< How often to check if refill is needed (usually 250-500ms
+                                    ///< is sufficient)
   component_label_t preheatController; ///< Dependency component label, should point to any
                                        ///< component config that implements
                                        ///< interfaces::TemperatureController

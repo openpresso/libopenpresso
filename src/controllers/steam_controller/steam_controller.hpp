@@ -5,7 +5,6 @@
 #include <future>
 #include <thread>
 
-#include <libopenpresso/interfaces/controller_base.hpp>
 #include <libopenpresso/interfaces/flow_rate_controller.hpp>
 #include <libopenpresso/interfaces/pressure_sensor.hpp>
 #include <libopenpresso/interfaces/temperature_controller.hpp>
@@ -23,12 +22,11 @@ class TemperatureController;
 class FlowRateController;
 } // namespace interfaces
 
-class SteamController : public interfaces::ControllerBase {
+class SteamController : public interfaces::TemperatureController {
 public:
   SteamController(TemperatureSensorPtr temperatureSensor,
                   TemperatureControllerPtr preheatController,
                   TemperatureControllerPtr steamingTempertureController,
-                  millidegrees_t steamTemperature,
                   millidegrees_t temperatureThreshold,
                   PressureSensorPtr presureSensor,
                   millibars_t pressureThreshold,
@@ -45,6 +43,8 @@ public:
   void activate() override;
   void deactivate() override;
   bool isActive() const noexcept override;
+  millidegrees_t getTargetTemperature() const override;
+  void setTargetTemperature(millidegrees_t millidegrees) override;
 
 private:
   void worker(const std::future<void>& exit);
@@ -57,11 +57,11 @@ private:
   const TemperatureControllerPtr m_steamingTemperatureController;
   const PressureSensorPtr m_presureSensor;
   const FlowRateControllerPtr m_flowController;
-  const millidegrees_t m_steamTemperature;
   const millibars_t m_pressureThreshold;
   const millidegrees_t m_temperatureThreshold;
   const milligrams_p_second_t m_refillFlow;
 
+  std::atomic<millidegrees_t> m_steamTemperature = 0;
   std::promise<void> m_exit;
   std::thread m_workerThread;
   const time_delta_t m_updatePeriod;
