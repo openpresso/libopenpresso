@@ -348,7 +348,7 @@ struct BrewProfilerConfig {
  * Manages steam boiler heating and refilling with fresh water
  * to compensate water loss during steaming.
  *
- * @note Call interfaces::LibopenpressoCore::getSteamController()
+ * @note Call interfaces::LibopenpressoCore::getTemperatureController()
  *       with the label of this config to get configured component instance.
  */
 struct SteamControllerConfig {
@@ -357,7 +357,7 @@ struct SteamControllerConfig {
                                  ///< with opened steam valve, usually ~2.5 bar)
   millidegrees_t temperatureRelativeThreshold; ///< Temperature threshold, refill is disabled when
                                                ///< boiler temperature is lower than
-                                               ///< steamTemperature by this offset (should be
+                                               ///< the target temperature by this offset (should be
                                                ///< ~10°C)
   milligrams_p_second_t refillFlow; ///< Boiler refill flow rate (too high values lead to boiler
                                     ///< overflow and water spillage from steam wand, too low

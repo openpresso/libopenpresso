@@ -152,9 +152,8 @@ can be used, this component can be skipped.
 
 ```cpp
 config.components["steam_ctrl"] = libopenpresso::SteamControllerConfig {
-    .steamTemperature = 155'000,             // 155°C in millidegrees
     .pressureThreshold = 2'500,              // Disable refill above ~2.5 bar
-    .temperatureThreshold = 145'000,         // Disable refill below 145°C
+    .temperatureRelativeThreshold = 10'000,  // Disable refill below target - 10°C
     .refillFlow = 500,                       // Refill at 500 mg/s
     .refillUpdatePeriod = 250ms,
     .preheatController           = "steam_preheat_temp_ctrl",  
@@ -165,7 +164,7 @@ config.components["steam_ctrl"] = libopenpresso::SteamControllerConfig {
 };
 ```
 
-Retrieved via: `core->getSteamController("steam_ctrl")`
+Retrieved via: `core->getTemperatureController("steam_ctrl")`
 
 ---
 
@@ -468,8 +467,7 @@ config.components = {
     }},
 
     { "steam_controller", libopenpresso::SteamControllerConfig {
-        .steamTemperature = 155'000,
-        .pressureThreshold = 2'500, .temperatureThreshold = 145'000,
+        .pressureThreshold = 2'500, .temperatureRelativeThreshold = 10'000,
         .refillFlow = 500, .refillUpdatePeriod = 250ms,
         .preheatController = "temp_ctrl", .steamingTemperatureController = "temp_ctrl",
         .temperatureSensor = "temp_sensor",

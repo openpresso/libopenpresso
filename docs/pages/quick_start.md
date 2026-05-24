@@ -196,7 +196,7 @@ void advancedBrew(const std::shared_ptr<libopenpresso::interfaces::Libopenpresso
     auto brewProfiler = core->getBrewProfiler("profiler");
     auto temperatureSensor = core->getTemperatureSensor("boiler_temp");
     auto brewTemperatureController = core->getTemperatureController("brewTempCtrl");
-    auto steamer = core->getSteamController("steamer");
+    auto steamer = core->getTemperatureController("steamer");
 
     brewProfiler->setSteps({
         { ConstantPressure{ 1'500 }, OnWeight{ 1'000 } },
@@ -251,6 +251,7 @@ void advancedBrew(const std::shared_ptr<libopenpresso::interfaces::Libopenpresso
         std::cout << std::format("\rTemperature: {:3.3f} °C    ", 0.001f * temperature) << std::flush;
     });
     
+    steamer->setTargetTemperature(155'000);
     steamer->activate();
 }
 ```
