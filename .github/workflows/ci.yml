@@ -139,7 +139,7 @@ jobs:
     needs: [ define-version, linter-checks ]
     strategy:
       matrix:
-        target: [ armv6, armv8 ]
+        target: [ armv6, armv8, x86_64 ]
     container: ghcr.io/openpresso/openpresso-toolchain-${{ matrix.target }}
     steps:
       - name: Checkout
