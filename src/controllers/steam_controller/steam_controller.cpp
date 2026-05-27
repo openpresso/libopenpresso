@@ -20,7 +20,6 @@ using namespace libopenpresso;
 SteamController::SteamController(TemperatureSensorPtr temperatureSensor,
                                  TemperatureControllerPtr preheatController,
                                  TemperatureControllerPtr steamingTempertureController,
-                                 millidegrees_t steamTemperature,
                                  millidegrees_t temperatureThreshold,
                                  PressureSensorPtr presureSensor,
                                  millibars_t pressureThreshold,
@@ -32,7 +31,6 @@ SteamController::SteamController(TemperatureSensorPtr temperatureSensor,
 , m_steamingTemperatureController{std::move(steamingTempertureController)}
 , m_presureSensor{std::move(presureSensor)}
 , m_flowController{std::move(flowController)}
-, m_steamTemperature{steamTemperature}
 , m_pressureThreshold{pressureThreshold}
 , m_temperatureThreshold{temperatureThreshold}
 , m_refillFlow{refillFlow}
@@ -64,8 +62,8 @@ void SteamController::activate()
     throw libopenpresso::Exception{"Flow rate controller is busy"};
   }
 
-  m_preheatController->setTargetTemperature(m_steamTemperature);
-  m_steamingTemperatureController->setTargetTemperature(m_steamTemperature);
+  m_preheatController->setTargetTemperature(getTargetTemperature());
+  m_steamingTemperatureController->setTargetTemperature(getTargetTemperature());
   m_flowController->setTargetRate(m_refillFlow);
   m_preheatController->activate();
 
@@ -92,6 +90,20 @@ void SteamController::deactivate()
 bool SteamController::isActive() const noexcept
 {
   return m_isActive.load(std::memory_order_relaxed);
+}
+
+millidegrees_t SteamController::getTargetTemperature() const
+{
+  return m_steamTemperature.load(std::memory_order_relaxed);
+}
+
+void SteamController::setTargetTemperature(millidegrees_t millidegrees)
+{
+  m_steamTemperature.store(millidegrees, std::memory_order_relaxed);
+  if (isActive()) {
+    m_preheatController->setTargetTemperature(millidegrees);
+    m_steamingTemperatureController->setTargetTemperature(millidegrees);
+  }
 }
 
 void SteamController::worker(const std::future<void>& exit)
@@ -142,6 +154,7 @@ void SteamController::controlLoop(const std::future<void>& exit)
 
 bool SteamController::isSteamValveOpen() const
 {
-  return m_temperatureSensor->getTemperature() >= m_temperatureThreshold &&
+  return m_temperatureSensor->getTemperature() + m_temperatureThreshold >=
+           m_steamTemperature.load(std::memory_order_relaxed) &&
          m_presureSensor->getPressure() <= m_pressureThreshold;
 }

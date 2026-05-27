@@ -13,7 +13,6 @@ libopenpresso_sources(components_fabric
     temperature_controller_fabric.hpp
     logical_output_fabric.hpp
     brew_profiler_fabric.hpp
-    steam_controller_fabric.hpp
     pulse_controller_fabric.hpp
   SOURCES
     power_controllers_fabric.cpp
@@ -27,6 +26,5 @@ libopenpresso_sources(components_fabric
     temperature_controller_fabric.cpp
     logical_output_fabric.cpp
     brew_profiler_fabric.cpp
-    steam_controller_fabric.cpp
     pulse_controller_fabric.cpp
 )

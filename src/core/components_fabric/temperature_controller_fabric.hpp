@@ -12,6 +12,7 @@ namespace libopenpresso
 class TemperatureControllerFabric : public ComponentFabricBase<TemperatureControllerFabric> {
 public:
   TemperatureControllerPtr makeComponent(const TemperaturePidControllerConfig& config);
+  TemperatureControllerPtr makeComponent(const SteamControllerConfig& config);
 };
 
 } // namespace libopenpresso

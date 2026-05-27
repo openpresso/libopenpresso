@@ -14,7 +14,6 @@
 #include <memory>
 
 #include <libopenpresso/interfaces/brew_profiler.hpp>
-#include <libopenpresso/interfaces/controller_base.hpp>
 #include <libopenpresso/interfaces/flow_rate_controller.hpp>
 #include <libopenpresso/interfaces/logical_input.hpp>
 #include <libopenpresso/interfaces/logical_output.hpp>
@@ -214,7 +213,7 @@ namespace libopenpresso::interfaces
  *
  *          Uses temperature sensor readings feedback-loop control.
  *
- * @note Supported implementation configs: TemperaturePidControllerConfig
+ * @note Supported implementation configs: TemperaturePidControllerConfig, SteamControllerConfig
  */
 
 /**
@@ -294,32 +293,6 @@ namespace libopenpresso::interfaces
  */
 
 /**
- * @fn virtual std::shared_ptr<ControllerBase> LibopenpressoCore::getSteamController(const
- * component_label_t& label)
- * @brief Retrieves or creates the steam controller with the specified label.
- *
- * @param[in] label Unique component identifier from DeviceConfig.
- *
- * @return std::shared_ptr<@ref ControllerBase> Shared pointer to the steam controller.
- *         Returned as generic ControllerBase since steam controller has no specific methods
- *         beyond activation control. Subsequent calls with the same label return cached instance.
- *
- * @throws libopenpresso::Exception if:
- *         - Label not found in DeviceConfig
- *         - Config for this label cannot be used to create a steam controller
- *         - Dependency component initialization fails
- *
- * @details The steam controller manages:
- *          - Steam boiler heating to target temperature
- *          - Boiler pressure regulation
- *          - Water refill logic and flow control
- *          - Pressure/temperature interlocks for safety
- *          Coordinates multiple sub-controllers for complete steam system operation.
- *
- * @note Supported implementation configs: SteamControllerConfig
- */
-
-/**
  * @fn virtual LibopenpressoCore::~LibopenpressoCore()
  * @brief Virtual destructor for polymorphic cleanup.
  *
@@ -338,7 +311,6 @@ public:
   virtual LogicalOutputPtr getLogicalOutput(const component_label_t& label) = 0;
   virtual LogicalInputPtr getLogicalInput(const component_label_t& label) = 0;
   virtual BrewProfilerPtr getBrewProfiler(const component_label_t& label) = 0;
-  virtual ControllerBasePtr getSteamController(const component_label_t& label) = 0;
 
   virtual ~LibopenpressoCore() = default;
 };

@@ -9,7 +9,6 @@
 #include <libopenpresso/config.hpp>
 #include <libopenpresso/exception.hpp>
 #include <libopenpresso/interfaces/brew_profiler.hpp>
-#include <libopenpresso/interfaces/controller_base.hpp>
 #include <libopenpresso/interfaces/flow_rate_controller.hpp>
 #include <libopenpresso/interfaces/logical_input.hpp>
 #include <libopenpresso/interfaces/logical_output.hpp>
@@ -91,11 +90,6 @@ LogicalInputPtr Core::getLogicalInput(const component_label_t& label)
 BrewProfilerPtr Core::getBrewProfiler(const component_label_t& label)
 {
   return BrewProfilerFabric::getComponent(label);
-}
-
-ControllerBasePtr Core::getSteamController(const component_label_t& label)
-{
-  return SteamControllerFabric::getComponent(label);
 }
 
 const component_config_t& Core::findComponentConfig(const component_label_t& label) const
