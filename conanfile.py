@@ -36,7 +36,7 @@ class Libopenpresso(ConanFile):
     def build_requirements(self):
         self.tool_requires("cmake/[>=3.30]")
         if self.options.with_docs:
-            self.tool_requires("doxygen/[>=1.16.0]")
+            self.tool_requires("doxygen/[>=1.16.0 <1.17.0]")
 
     def requirements(self):
         self.requires("boost/[>=1.90.0]", options = { "header_only": True }, visible = False)
