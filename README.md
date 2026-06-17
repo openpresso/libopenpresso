@@ -16,7 +16,7 @@ It provides high-level interfaces for espresso-brewing and steam control, abstra
 For detailed information on installation, configuration, and API usage, please refer to the following resources:
 
 - 🏠 **[OpenPresso Main Site](https://openpresso.org)**: General project overview and ecosystem.
-- 📖 **[Technical Documentation](https://openpresso.org/libopenpresso)**: Detailed API references, installation guides, and tuning tutorials.
+- 📖 **[Technical Documentation](https://openpresso.org/openpresso-docs/libopenpresso)**: Detailed API references, installation guides, and tuning tutorials.
 
 ---
 
