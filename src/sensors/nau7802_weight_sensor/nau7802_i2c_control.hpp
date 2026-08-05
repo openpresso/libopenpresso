@@ -65,6 +65,7 @@ private:
   void initSequense(const std::future<void>& exit);
   void runCalibration(const std::future<void>& exit, nau7802::CalibrationMode mode);
   void flushSamples(const std::future<void>& exit, size_t count);
+  void flushSamples(size_t count);
   void resetChip(const std::future<void>& exit);
   void enableDigital(const std::future<void>& exit);
   void enableAnalog(const std::future<void>& exit);

@@ -40,6 +40,9 @@ void Nau7802WeightSensorI2cControl::resetZero()
     std::this_thread::sleep_for(10ms);
     m_control.readRegisters(calibRegister);
   }
+
+  static constexpr size_t flushAfterOffsetCalib = 10;
+  flushSamples(flushAfterOffsetCalib);
 }
 
 void Nau7802WeightSensorI2cControl::joinInitThread()
@@ -52,7 +55,7 @@ void Nau7802WeightSensorI2cControl::initSequense(const std::future<void>& exit)
 {
   static constexpr size_t flushAfterAnalogEnable = 10;
   static constexpr size_t flushAfterDefaultCalib = 6;
-  static constexpr size_t flushAfterOffsetCalib = 2;
+  static constexpr size_t flushAfterOffsetCalib = 10;
 
   resetChip(exit);
   enableDigital(exit);
@@ -99,6 +102,26 @@ void Nau7802WeightSensorI2cControl::flushSamples(const std::future<void>& exit, 
       if (exit.wait_for(10ms) == std::future_status::ready) {
         return;
       }
+      m_control.readRegisters(startRegister);
+    }
+    readRawWeight();
+    startRegister.cycleReady = nau7802::CycleReady::NotReady;
+  }
+}
+
+void libopenpresso::Nau7802WeightSensorI2cControl::flushSamples(size_t count)
+{
+  auto startRegister = nau7802::PowerUpRegisterData{
+    .voltageSelect = AVDD_SOURCE,
+    .cycleStart = nau7802::CycleStart::Start,
+    .analogPower = nau7802::AnalogCircuitPower::PowerUp,
+    .digitalPower = nau7802::DigitalCircuitPower::PowerUp,
+  };
+  m_control.writeRegisters(startRegister);
+
+  for (size_t i = 0; i < count; ++i) {
+    while (startRegister.cycleReady == nau7802::CycleReady::NotReady) {
+      std::this_thread::sleep_for(10ms);
       m_control.readRegisters(startRegister);
     }
     readRawWeight();
