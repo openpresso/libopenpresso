@@ -12,7 +12,7 @@ namespace libopenpresso::watchdog
 {
 class WatchdogThread;
 
-class PinOutputValidator : public gpio::PinOutput {
+class PinOutputValidator final : public gpio::PinOutput {
 public:
   PinOutputValidator(const std::shared_ptr<WatchdogThread>& watchdog,
                      const std::shared_ptr<gpio::PinOutput>& output);

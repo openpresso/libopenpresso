@@ -20,7 +20,7 @@ namespace interfaces
 class PressureSensor;
 }
 
-class PulsePressureController : public interfaces::PressureController {
+class PulsePressureController final : public interfaces::PressureController {
 public:
   PulsePressureController(std::shared_ptr<gpio::PulseController> controller, PressureSensorPtr sensor);
   PulsePressureController(const PulsePressureController&) = delete;

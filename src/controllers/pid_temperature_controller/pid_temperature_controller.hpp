@@ -32,7 +32,7 @@ class PowerController;
 class PumpFlowSensor;
 
 template <bool dumpPidState = true>
-class PidTemperatureController
+class PidTemperatureController final
 : public interfaces::TemperatureController
 , public std::conditional_t<dumpPidState, PidStateDump, std::monostate> {
   static constexpr pid_calc_t PID_RESULT_MAX = 1.0;

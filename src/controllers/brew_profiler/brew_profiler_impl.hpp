@@ -39,7 +39,7 @@ class FlowRateController;
 class LogicalOutput;
 } // namespace interfaces
 
-class BrewProfilerImpl : public interfaces::BrewProfiler {
+class BrewProfilerImpl final : public interfaces::BrewProfiler {
   using weight_condition_checker_t =
     SensorConditionChecker<interfaces::WeightSensor, milligrams_t, &interfaces::WeightSensor::getWeight, std::less{}>;
   using stop_condition_checker_t =

@@ -11,7 +11,7 @@
 namespace libopenpresso::gpio
 {
 
-class TimeSensetivePinMonitor : public PinMonitor {
+class TimeSensetivePinMonitor final : public PinMonitor {
   static constexpr int THREAD_PRIORITY = 80;
 
 public:

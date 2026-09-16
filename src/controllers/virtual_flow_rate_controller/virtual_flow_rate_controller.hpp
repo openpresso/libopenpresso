@@ -20,7 +20,7 @@ namespace interfaces
 {
 class PressureSensor;
 }
-class VirtualFlowRateController : public interfaces::FlowRateController {
+class VirtualFlowRateController final : public interfaces::FlowRateController {
 public:
   VirtualFlowRateController(std::shared_ptr<gpio::PulseController> controller,
                             PressureSensorPtr sensor,

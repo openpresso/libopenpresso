@@ -17,7 +17,7 @@
 namespace libopenpresso
 {
 
-class SwDebouncedButtonState : public interfaces::LogicalInput {
+class SwDebouncedButtonState final : public interfaces::LogicalInput {
 public:
   SwDebouncedButtonState(const std::shared_ptr<gpio::PinMonitor>& monitor, time_delta_t debounce, bool inverted);
 

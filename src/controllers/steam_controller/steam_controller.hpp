@@ -22,7 +22,7 @@ class TemperatureController;
 class FlowRateController;
 } // namespace interfaces
 
-class SteamController : public interfaces::TemperatureController {
+class SteamController final : public interfaces::TemperatureController {
 public:
   SteamController(TemperatureSensorPtr temperatureSensor,
                   TemperatureControllerPtr preheatController,

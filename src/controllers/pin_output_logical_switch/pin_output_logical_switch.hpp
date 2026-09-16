@@ -13,7 +13,7 @@ namespace gpio
 class PinOutput;
 }
 
-class PinOutputLogicalSwitch : public interfaces::LogicalOutput {
+class PinOutputLogicalSwitch final : public interfaces::LogicalOutput {
 public:
   PinOutputLogicalSwitch(const std::shared_ptr<gpio::PinOutput>& output, bool inverted);
   PinOutputLogicalSwitch(const PinOutputLogicalSwitch&) = delete;

@@ -18,7 +18,7 @@ namespace libopenpresso
 
 class PumpFlowSensor;
 
-class VirtualWeightSensor : public interfaces::WeightSensor {
+class VirtualWeightSensor final : public interfaces::WeightSensor {
 public:
   VirtualWeightSensor(const std::shared_ptr<PumpFlowSensor>& flow, time_delta_t flowRateSmoothingTime);
 
