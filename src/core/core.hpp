@@ -36,7 +36,7 @@
 namespace libopenpresso
 {
 
-class Core
+class Core final
 : public virtual interfaces::LibopenpressoCore
 , private virtual CorePrivateBase
 , private PulseControllerFabric

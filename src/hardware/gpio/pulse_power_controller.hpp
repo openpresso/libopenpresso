@@ -14,7 +14,7 @@ namespace libopenpresso::gpio
 
 class PulseController;
 
-class PulsePowerController : public PowerController {
+class PulsePowerController final : public PowerController {
 public:
   PulsePowerController(const std::shared_ptr<PulseController>& pulseController, uint8_t maxPower);
 

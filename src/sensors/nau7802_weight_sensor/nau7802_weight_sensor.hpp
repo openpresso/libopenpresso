@@ -26,7 +26,7 @@ namespace gpio
 class PinMonitor;
 }
 
-class Nau7802WeightSensor : public interfaces::WeightSensor {
+class Nau7802WeightSensor final : public interfaces::WeightSensor {
   static constexpr int WEIGHT_SCALE_BIT_OFFSET = 8;
 
 public:

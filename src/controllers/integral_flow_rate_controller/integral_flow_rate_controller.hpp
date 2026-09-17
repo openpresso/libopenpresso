@@ -25,7 +25,7 @@ namespace gpio
 class PowerController;
 }
 
-class IntegralFlowRateController : public interfaces::FlowRateController {
+class IntegralFlowRateController final : public interfaces::FlowRateController {
 public:
   IntegralFlowRateController(std::shared_ptr<gpio::PowerController> powerController,
                              WeightSensorPtr sensor,

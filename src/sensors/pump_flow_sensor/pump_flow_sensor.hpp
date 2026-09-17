@@ -22,7 +22,7 @@ namespace interfaces
 class PressureSensor;
 }
 
-class PumpFlowSensor : public gpio::PulseCounter {
+class PumpFlowSensor final : public gpio::PulseCounter {
 public:
   using callback_t = std::function<void(micrograms_t)>;
   PumpFlowSensor(const PressureSensorPtr& pressure, millibars_t pumpStallPressure, micrograms_t volumePerPulse);

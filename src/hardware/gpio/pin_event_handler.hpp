@@ -14,7 +14,7 @@
 namespace libopenpresso::gpio
 {
 
-class PinEventHandler : public PinMonitor {
+class PinEventHandler final : public PinMonitor {
 public:
   PinEventHandler(input_pin_info_t pinInfo);
   bool isEventSupported(PinEvent notifyOn) const noexcept;

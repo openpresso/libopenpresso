@@ -23,7 +23,7 @@ namespace gpio
 class PinMonitor;
 }
 
-class Ads1115PressureSensor
+class Ads1115PressureSensor final
 : public interfaces::PressureSensor
 , private Ads1115PressureSensorI2cControl {
 public:

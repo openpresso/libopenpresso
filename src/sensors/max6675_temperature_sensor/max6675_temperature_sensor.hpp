@@ -16,7 +16,7 @@
 namespace libopenpresso
 {
 
-class Max6675TemperatureSensor : public interfaces::TemperatureSensor {
+class Max6675TemperatureSensor final : public interfaces::TemperatureSensor {
   static constexpr auto SENSOR_UPDATE_TIMEOUT_MILLIS = std::chrono::milliseconds{250};
 
 public:

@@ -16,7 +16,7 @@ public:
   virtual ~PinOutput() = default;
 };
 
-class PinOutputImpl : public PinOutput {
+class PinOutputImpl final : public PinOutput {
 public:
   PinOutputImpl(const output_pin_info_t& info);
   PinOutputImpl(const PinOutputImpl&) = delete;

@@ -17,7 +17,7 @@
 namespace libopenpresso
 {
 
-class Max31856TemperatureSensor
+class Max31856TemperatureSensor final
 : public interfaces::TemperatureSensor
 , private Max31856TemperatureSensorSpiControl {
 public:
